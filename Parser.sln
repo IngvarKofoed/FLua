@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Parser", "Parser\Parser.fsproj", "{3472E05E-2F87-404C-BE56-1279169493A0}"
+EndProject
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Tests", "Tests\Tests.fsproj", "{2E6AC4FE-EB54-42C3-AF5E-4A8378FF6CC6}"
+EndProject
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "ParserConsole", "ParserConsole\ParserConsole.fsproj", "{3B8CAE17-F3DE-4309-B160-065CBD75EDEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3472E05E-2F87-404C-BE56-1279169493A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3472E05E-2F87-404C-BE56-1279169493A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3472E05E-2F87-404C-BE56-1279169493A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3472E05E-2F87-404C-BE56-1279169493A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E6AC4FE-EB54-42C3-AF5E-4A8378FF6CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E6AC4FE-EB54-42C3-AF5E-4A8378FF6CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E6AC4FE-EB54-42C3-AF5E-4A8378FF6CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E6AC4FE-EB54-42C3-AF5E-4A8378FF6CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B8CAE17-F3DE-4309-B160-065CBD75EDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B8CAE17-F3DE-4309-B160-065CBD75EDEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B8CAE17-F3DE-4309-B160-065CBD75EDEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B8CAE17-F3DE-4309-B160-065CBD75EDEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

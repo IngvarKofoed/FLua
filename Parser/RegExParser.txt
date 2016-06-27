@@ -1,0 +1,27 @@
+﻿// Gramma (http://www3.sympatico.ca/dbiggar/RE.home.html)
+// 
+// exp          = expression                // Expression
+//              | expression '|' exp        // Union
+//              |                           // Empty
+//
+// expression   = term                      // Term
+//              | term expression           // Concatination
+//              | term '*'                  // Star
+//              | term '+'                  // Plus
+//              | term '?'                  // Any
+//
+// term         = label                     // Label
+//              | '(' exp ')'               // Group
+//
+// label        = symbol                    // Symbol
+//              | '[' range range ']'
+//              | '[' range ']'
+//              | '[' '^' range range ']'
+//              | '[' '^' range ']'
+//
+// range        = symbol
+//              | symbol '-' symbol
+// 
+// symbol       = '.'                       // Dot
+//              | 0 .. n                    // Char
+//              | '\' symbol                // Escape
