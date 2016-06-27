@@ -4,6 +4,8 @@ open NUnit.Framework
 open RegularExpression
 open RegularExpression.Parser
 
+#nowarn "59" // :> Term<Expression>
+
 [<TestFixture>]
 type RegExParser_parseSymbol() = 
     static member validData =
@@ -39,3 +41,24 @@ type RegExParser_parseLabel() =
     [<TestCaseSource(typedefof<RegExParser_parseLabel>, "validData")>]
     member x.ValidCases data =
         parseLabel data
+
+
+[<TestFixture>]
+type RegExParser_parseTerm() = 
+    static member validData =
+       [
+           TestCaseData("a" |> List.ofSeq).Returns(((Label(Symbol(Char('a'))) :> Term<Expression>), List.empty<char>)).SetName("a");
+           TestCaseData("(a)" |> List.ofSeq).Returns((Group(Expression(Term(Label(Symbol(Dot))))), List.empty<char>)).SetName("(a)");
+       ]
+
+    [<Test>]
+    [<TestCaseSource(typedefof<RegExParser_parseTerm>, "validData")>]
+    member x.ValidCases data =
+        parseTerm data (fun s -> (Expression(Term(Label(Symbol(Dot)))), [')']))
+
+
+    [<Test>]
+    member x.EmptyStreamThrows() =
+        Assert.Throws<Exception>(fun () -> parseTerm [] (fun s -> (Expression(Term(Label(Symbol(Dot)))), [')'])) |> ignore) |> ignore
+
+   
