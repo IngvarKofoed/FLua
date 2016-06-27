@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="RegExTests.fs.old" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RegExParserTests.fs" />

@@ -46,7 +46,6 @@
     <Compile Include="RegExParserPrettyPrint.fs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RegEx.fs.old" />
     <None Include="RegExParser.txt" />
   </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
