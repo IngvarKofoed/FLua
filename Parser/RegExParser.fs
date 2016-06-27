@@ -28,7 +28,7 @@ type Expression =
         
 module Parser =
 
-    let rec parseSymbol stream =
+    let rec internal parseSymbol stream =
         match stream with
         | x::xs -> 
             match x with 
@@ -43,12 +43,12 @@ module Parser =
         | [] -> failwith "Symbol exspected"
 
 
-    let parseLabel stream =
+    let internal parseLabel stream = // TODO: Consider injecting parseSymbol
         let (sym, rest) = parseSymbol stream
         (Symbol(sym), rest)
 
 
-    let parseTerm stream (parseExp: char list -> Exp<Expression> * char list) =
+    let internal parseTerm stream (parseExp: char list -> Exp<Expression> * char list) =
         match stream with 
         | x::xs ->
             match x with 
@@ -62,7 +62,7 @@ module Parser =
         | _ -> failwith "Term expected"
         
 
-    let rec parseExpression stream (parseExp: char list -> Exp<Expression> * char list) =
+    let rec internal parseExpression stream (parseExp: char list -> Exp<Expression> * char list) =
         let (term, rest) = parseTerm stream parseExp
         match rest with
         | x::xs ->
@@ -77,7 +77,7 @@ module Parser =
         | [] -> (Term(term), rest)
 
 
-    let rec parseExp stream =
+    let rec internal parseExp stream =
         match stream with
         | [] -> (Empty, [])
         | _ ->

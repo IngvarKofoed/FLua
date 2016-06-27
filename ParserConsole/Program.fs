@@ -6,11 +6,7 @@ open RegularExpression.Parser
 [<EntryPoint>]
 let main argv = 
 
-    //PrettyPrint.prettyPrintSymbol Dot
-    let res = parseSymbol (List.ofSeq "a")
-     
-    PrettyPrint.prettyPrintSymbol (fst res)
-
+ 
 
    
     0 // return an integer exit code

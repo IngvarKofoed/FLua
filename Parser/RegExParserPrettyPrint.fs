@@ -1,25 +1,26 @@
 ﻿namespace RegularExpression
 
-
 module PrettyPrint =
 
-    let rec prettyPrintSymbol symbol =
+    let rec internal prettyPrintSymbol symbol =
         match symbol with 
         | Dot -> printf "."
         | Char c -> printf "%c" c
         | Escape s -> printf "\\"; prettyPrintSymbol s
 
-    let prettyPrintLabel label = 
+
+    let internal prettyPrintLabel label = 
         match label with
         | Symbol s -> prettyPrintSymbol s 
+       
 
-    let rec prettyPrintTerm term prettyPrintExp =
+    let rec internal prettyPrintTerm term prettyPrintExp =
         match term with
         | Label(l) -> prettyPrintLabel l
         | Group(exp) -> printf "("; prettyPrintExp exp; printf ")"
 
 
-    let rec prettyPrintExpression expression prettyPrintExp = 
+    let rec internal prettyPrintExpression expression prettyPrintExp = 
         match expression with
         | Concatination(l, r) -> prettyPrintTerm l prettyPrintExp; prettyPrintExpression r prettyPrintExp
         | Term(t) -> prettyPrintTerm t prettyPrintExp
@@ -27,8 +28,12 @@ module PrettyPrint =
         | Plus(t) -> prettyPrintTerm t prettyPrintExp; printf "+"
         | Any(t) -> prettyPrintTerm t prettyPrintExp; printf "?"
 
-    let rec prettyPrintExp exp = 
+
+    let rec internal prettyPrintExp exp = 
         match exp with
         | Union(left, right) -> prettyPrintExpression left prettyPrintExp; printf "|"; prettyPrintExp right
         | Expression e -> prettyPrintExpression e prettyPrintExp
         | Empty -> ()
+     
+
+    let prettyPrint = prettyPrintExp
