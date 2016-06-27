@@ -64,3 +64,16 @@ type RegExParser_parseSymbol() =
     [<Test>]
     member x.UnsupportedSymbolThrows() =
         Assert.Throws<System.Exception>(fun () -> parseSymbol ['å'] |> ignore) |> ignore
+
+
+[<TestFixture>]
+type RegExParser_parseLabel() = 
+    static member validData =
+       [
+           TestCaseData("a" |> List.ofSeq).Returns((Symbol(Char('a')), List.empty<char>)).SetName("a");
+       ]
+
+    [<Test>]
+    [<TestCaseSource(typedefof<RegExParser_parseLabel>, "validData")>]
+    member x.ValidCases data =
+        parseLabel data
