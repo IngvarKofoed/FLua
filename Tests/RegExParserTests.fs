@@ -81,3 +81,23 @@ type RegExParser_parseTerm() =
      member x.ValidCases data =
          parseExpression data (fun s -> (Expression(Term(Label(Symbol(Dot)))), []))
  
+
+
+[<TestFixture>]
+ type RegExParser_parseExp() = 
+     static member validData =
+        [
+            TestCaseData("" |> List.ofSeq).Returns((Empty :> Exp<Expression>, List.empty<char>)).SetName("'empty'");
+            TestCaseData("(a)" |> List.ofSeq).Returns((Expression(Term(Group(Expression(Term(Label(Symbol(Char('a')))))))), List.empty<char>)).SetName("(a)");
+            TestCaseData("a|a" |> List.ofSeq).Returns((Union(Term(Label(Symbol(Char('a')))), Expression(Term(Label(Symbol(Char('a')))))), List.empty<char>)).SetName("a|a");
+        ]
+ 
+     [<Test>]
+     [<TestCaseSource(typedefof<RegExParser_parseExp>, "validData")>]
+     member x.ValidCases data =
+         parseExp data 
+
+
+     [<Test>]
+     member x.DoubleUnion() =
+         Assert.Throws<Exception>(fun () -> parseExp (List.ofSeq "a||") |> ignore) |> ignore
