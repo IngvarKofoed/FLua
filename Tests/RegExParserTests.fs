@@ -30,6 +30,7 @@ type RegExParser_parseSymbol() =
         Assert.Throws<Exception>(fun () -> parseSymbol ['å'] |> ignore) |> ignore
 
 
+
 [<TestFixture>]
 type RegExParser_parseLabel() = 
     static member validData =
@@ -41,6 +42,7 @@ type RegExParser_parseLabel() =
     [<TestCaseSource(typedefof<RegExParser_parseLabel>, "validData")>]
     member x.ValidCases data =
         parseLabel data
+
 
 
 [<TestFixture>]
@@ -61,4 +63,21 @@ type RegExParser_parseTerm() =
     member x.EmptyStreamThrows() =
         Assert.Throws<Exception>(fun () -> parseTerm [] (fun s -> (Expression(Term(Label(Symbol(Dot)))), [')'])) |> ignore) |> ignore
 
+
    
+ [<TestFixture>]
+ type RegExParser_parseExpression() = 
+     static member validData =
+        [
+            TestCaseData("a*" |> List.ofSeq).Returns((Star(Label(Symbol(Char('a')))), List.empty<char>)).SetName("a*");
+            TestCaseData("a+" |> List.ofSeq).Returns((Plus(Label(Symbol(Char('a')))), List.empty<char>)).SetName("a+");
+            TestCaseData("a?" |> List.ofSeq).Returns((Any(Label(Symbol(Char('a')))), List.empty<char>)).SetName("a?");
+            TestCaseData("a" |> List.ofSeq).Returns((Term(Label(Symbol(Char('a')))), List.empty<char>)).SetName("a");
+            TestCaseData("aa" |> List.ofSeq).Returns((Concatination(Label(Symbol(Char('a'))), Term(Label(Symbol(Char('a'))))), List.empty<char>)).SetName("aa");
+        ]
+ 
+     [<Test>]
+     [<TestCaseSource(typedefof<RegExParser_parseExpression>, "validData")>]
+     member x.ValidCases data =
+         parseExpression data (fun s -> (Expression(Term(Label(Symbol(Dot)))), []))
+ 
