@@ -1,4 +1,5 @@
 ﻿namespace RegularExpression
+open RegularExpression.Parser
 
 module PrettyPrint =
 

@@ -1,32 +1,31 @@
 ﻿namespace RegularExpression
-
-// Generic used to handle circular dependency T is always Expression
-type Exp<'T> =
-    | Union of left: 'T * right: Exp<'T> 
-    | Expression of 'T
-    | Empty
-
-type Symbol = 
-    | Dot
-    | Char of value: char
-    | Escape of value: Symbol
-
-type Label =
-    Symbol of value: Symbol
-    
-type Term<'T> = 
-    | Label of value: Label
-    | Group of Exp<'T>
-
-type Expression = 
-    | Concatination of left: Term<Expression> * right: Expression
-    | Term of Term<Expression>
-    | Star of Term<Expression>
-    | Plus of Term<Expression>
-    | Any of Term<Expression>
-
-        
+ 
 module Parser =
+    // Generic used to handle circular dependency T is always Expression
+    type Exp<'T> =
+        | Union of left: 'T * right: Exp<'T> 
+        | Expression of 'T
+        | Empty
+    
+    type Symbol = 
+        | Dot
+        | Char of value: char
+        | Escape of value: Symbol
+    
+    type Label =
+        Symbol of value: Symbol
+        
+    type Term<'T> = 
+        | Label of value: Label
+        | Group of Exp<'T>
+    
+    type Expression = 
+        | Concatination of left: Term<Expression> * right: Expression
+        | Term of Term<Expression>
+        | Star of Term<Expression>
+        | Plus of Term<Expression>
+        | Any of Term<Expression>
+
 
     let rec internal parseSymbol stream =
         match stream with
