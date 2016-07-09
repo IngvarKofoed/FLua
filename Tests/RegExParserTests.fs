@@ -4,8 +4,6 @@ open NUnit.Framework
 open RegularExpression
 open RegularExpression.Parser
 
-#nowarn "59" // :> Term<Expression>
-
 [<TestFixture>]
 type RegExParser_parseSymbol() = 
     static member validData =
@@ -49,7 +47,7 @@ type RegExParser_parseLabel() =
 type RegExParser_parseTerm() = 
     static member validData =
        [
-           TestCaseData("a" |> List.ofSeq).Returns(((Label(Symbol(Char('a'))) :> Term<Expression>), List.empty<char>)).SetName("a");
+           TestCaseData("a" |> List.ofSeq).Returns(((Label(Symbol(Char('a')))), List.empty<char>)).SetName("a");
            TestCaseData("(a)" |> List.ofSeq).Returns((Group(Expression(Term(Label(Symbol(Dot))))), List.empty<char>)).SetName("(a)");
        ]
 
@@ -87,7 +85,7 @@ type RegExParser_parseTerm() =
  type RegExParser_parseExp() = 
      static member validData =
         [
-            TestCaseData("" |> List.ofSeq).Returns((Empty :> Exp<Expression>, List.empty<char>)).SetName("'empty'");
+            TestCaseData("" |> List.ofSeq).Returns((Empty, List.empty<char>)).SetName("'empty'");
             TestCaseData("(a)" |> List.ofSeq).Returns((Expression(Term(Group(Expression(Term(Label(Symbol(Char('a')))))))), List.empty<char>)).SetName("(a)");
             TestCaseData("a|a" |> List.ofSeq).Returns((Union(Term(Label(Symbol(Char('a')))), Expression(Term(Label(Symbol(Char('a')))))), List.empty<char>)).SetName("a|a");
         ]

@@ -29,5 +29,9 @@ module Evaluator =
             match transitions with 
             | [] -> false // Did not match, failed to match char x
             | [t] -> evaluateRegEx t.toNode graph xs
-            | _ -> failwith "Non deterministic finite automata"        
+            | _ -> failwith "Non deterministic finite automata"      
+
+    let evaluate graph stream =
+        evaluateRegEx 0 graph stream
+      
 

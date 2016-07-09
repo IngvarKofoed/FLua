@@ -1,31 +1,30 @@
 ﻿namespace RegularExpression
  
 module Parser =
-    // Generic used to handle circular dependency T is always Expression
-    type Exp<'T> =
-        | Union of left: 'T * right: Exp<'T> 
-        | Expression of 'T
+ 
+    type Exp =
+        | Union of left: Expression * right: Exp 
+        | Expression of Expression
         | Empty
-    
-    type Symbol = 
+    and Expression = 
+        | Concatination of left: Term * right: Expression
+        | Term of Term
+        | Star of Term
+        | Plus of Term
+        | Any of Term
+    and Term = 
+        | Label of value: Label
+        | Group of Exp
+    and Label =
+        Symbol of value: Symbol
+    and Symbol = 
         | Dot
         | Char of value: char
         | Escape of value: Symbol
     
-    type Label =
-        Symbol of value: Symbol
-        
-    type Term<'T> = 
-        | Label of value: Label
-        | Group of Exp<'T>
-    
-    type Expression = 
-        | Concatination of left: Term<Expression> * right: Expression
-        | Term of Term<Expression>
-        | Star of Term<Expression>
-        | Plus of Term<Expression>
-        | Any of Term<Expression>
+   
 
+    let private symbols = List.ofSeq "abcdefghijklmnopqrstuvwz"
 
     let rec internal parseSymbol stream =
         match stream with
@@ -36,7 +35,7 @@ module Parser =
             | '\\' -> 
                 let (sym, rest) = parseSymbol xs
                 (Escape(sym), rest)
-            | c when c = 'a' -> 
+            | c when List.contains c symbols ->
                 (Char(c), xs)
             | _ -> failwith "Unexpected symbol"
         | [] -> failwith "Symbol exspected"
@@ -47,7 +46,7 @@ module Parser =
         (Symbol(sym), rest)
 
 
-    let internal parseTerm stream (parseExp: char list -> Exp<Expression> * char list) =
+    let internal parseTerm stream (parseExp: char list -> Exp * char list) =
         match stream with 
         | x::xs ->
             match x with 
@@ -61,7 +60,7 @@ module Parser =
         | _ -> failwith "Term expected"
         
 
-    let rec internal parseExpression stream (parseExp: char list -> Exp<Expression> * char list) =
+    let rec internal parseExpression stream (parseExp: char list -> Exp * char list) =
         let (term, rest) = parseTerm stream parseExp
         match rest with
         | x::xs ->
@@ -94,5 +93,7 @@ module Parser =
                     failwith "parseExp"
 
 
+    // Test
+    /// <param name="stream">description</param>
     let parse stream = 
         fst (parseExp stream)
