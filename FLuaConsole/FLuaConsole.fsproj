@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2E6AC4FE-EB54-42C3-AF5E-4A8378FF6CC6}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Tests</RootNamespace>
-    <AssemblyName>Tests</AssemblyName>
+    <ProjectGuid>{3B8CAE17-F3DE-4309-B160-065CBD75EDEB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ParserConsole</RootNamespace>
+    <AssemblyName>ParserConsole</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -16,7 +16,7 @@
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <ConsolePause>false</ConsolePause>
+    <ExternalConsole>true</ExternalConsole>
     <PlatformTarget></PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -24,7 +24,7 @@
     <OutputPath>bin\Release</OutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <ConsolePause>false</ConsolePause>
+    <ExternalConsole>true</ExternalConsole>
     <GenerateTailCalls>true</GenerateTailCalls>
     <PlatformTarget></PlatformTarget>
   </PropertyGroup>
@@ -38,21 +38,11 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.2.1\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="RegExParserTests.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Parser\Parser.fsproj">
-      <Project>{3472E05E-2F87-404C-BE56-1279169493A0}</Project>
-      <Name>Parser</Name>
-    </ProjectReference>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
 </Project>
