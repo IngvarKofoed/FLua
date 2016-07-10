@@ -1,5 +1,5 @@
 packages/
-Parser.userprefs
+*.userprefs
 bin/
 obj/
 .DS_Store
